@@ -270,8 +270,8 @@ h2 {
 
 .holocron-action {
   position: absolute;
-  top: clamp(15rem, 37vh, 24rem);
-  left: calc(50% - var(--mentor-width) * 0.72);
+  top: calc(100% - var(--mentor-bottom) - var(--mentor-width) * 1.05);
+  left: calc(50% - var(--mentor-width) * 0.5);
   z-index: 5;
   display: grid;
   justify-items: center;
@@ -289,7 +289,7 @@ h2 {
 }
 
 .mentor-scene--generated .holocron-action {
-  top: clamp(11rem, 29vh, 18rem);
+  top: calc(100% - var(--mentor-bottom) - var(--mentor-width) * 0.98);
   left: calc(50% + var(--mentor-width) * 0.42);
 }
 
@@ -612,7 +612,7 @@ footer::after {
 
   .hero {
     width: 100%;
-    min-height: min(100dvh, 58rem);
+    min-height: calc(100dvh - 1.7rem);
   }
 
   .hero-copy {
@@ -669,8 +669,8 @@ footer::after {
   }
 
   .holocron-action {
-    top: clamp(17rem, 42vh, 25rem);
-    left: calc(50% - var(--mentor-width) * 0.22);
+    top: calc(100% - var(--mentor-bottom) - var(--mentor-width) * 1.03);
+    left: calc(50% - var(--mentor-width) * 0.26);
   }
 
   .after-actions {
@@ -731,8 +731,8 @@ footer::after {
   }
 
   .holocron-action {
-    top: clamp(20rem, 48vh, 27rem);
-    left: calc(50% - var(--mentor-width) * 0.42);
+    top: calc(100% - var(--mentor-bottom) - var(--mentor-width) * 1.02);
+    left: calc(50% - var(--mentor-width) * 0.5);
   }
 
   .holocron-action__label {
