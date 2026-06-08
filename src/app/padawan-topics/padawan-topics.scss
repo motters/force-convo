@@ -144,7 +144,7 @@ h2 {
 
 .mentor-scene--generated {
   --mentor-width: clamp(18rem, 24vw, 28rem);
-  --mentor-bottom: clamp(4.3rem, 8.8vh, 6.6rem);
+  --mentor-bottom: clamp(1.4rem, 3.4vh, 3rem);
   --holocron-size: clamp(4.9rem, 6vw, 6.6rem);
 }
 
@@ -588,7 +588,8 @@ footer::after {
   }
 
   .topic-page--generated .hero {
-    min-height: min(82dvh, 46rem);
+    align-self: stretch;
+    min-height: calc(100dvh - clamp(2rem, 4.4vw, 4rem));
   }
 
   .topic-page--generated .hero-copy {
