@@ -1,6 +1,21 @@
 <main class="topic-page" [class.topic-page--generated]="generated()">
   <section class="hero" aria-labelledby="padawan-topic-title">
-    <h1 class="sr-only" id="padawan-topic-title">The Holocron of Random Chat</h1>
+    <div class="hero-copy">
+      <img
+        class="hero-copy__mark"
+        src="/padawan-assets/holocron-button.png"
+        alt=""
+        width="720"
+        height="720"
+        aria-hidden="true"
+      />
+      <p class="eyebrow">Padawan Daily Topics</p>
+      <h1 id="padawan-topic-title">The Holocron of Random Chat</h1>
+      <p>
+        Consult the Holocron for three tiny conversation quests. Funny, chill, lightly flirty,
+        and approved for casual Padawan training.
+      </p>
+    </div>
 
     <div
       class="mentor-scene"
@@ -54,7 +69,6 @@
           </span>
         </button>
       }
-      <span class="button-beam"></span>
     </div>
 
     @if (generated()) {
@@ -65,6 +79,8 @@
       </div>
     }
   </section>
+
+  <footer>No Jedi mind tricks. Just random chat fuel.</footer>
 
   @if (generated()) {
     <section class="topic-panel" aria-live="polite" aria-label="Generated conversation topics">

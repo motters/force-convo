@@ -11,8 +11,8 @@ interface MentorStage {
 const MENTOR_STAGES: readonly MentorStage[] = [
   {
     image: '/padawan-assets/stage-welcome.png',
-    label: 'Loading transmission',
-    message: 'Welcome young one, to the art of convo starting.',
+    label: 'Awaiting transmission',
+    message: "Generate today's 3 random topics",
   },
   {
     image: '/padawan-assets/stage-force-convo.png',

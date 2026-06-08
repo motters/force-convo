@@ -24,7 +24,7 @@ describe('PadawanTopics', () => {
     const activeTransmission = () =>
       compiled.querySelector('.mentor-bubble--active')?.textContent ?? '';
 
-    expect(activeTransmission()).toContain('Welcome young one, to the art of convo starting.');
+    expect(activeTransmission()).toContain("Generate today's 3 random topics");
     expect(compiled.querySelector('.topic-panel')).toBeNull();
     expect(compiled.querySelector('.holocron-action')).toBeNull();
     expect(compiled.querySelectorAll('.topic-card')).toHaveLength(0);
