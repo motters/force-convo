@@ -594,8 +594,8 @@ button:active {
   }
 
   .mentor-bubble {
-    top: clamp(-0.25rem, 1.2vh, 0.75rem);
-    left: max(0rem, calc((100% - var(--mentor-width)) / 2 - 10rem));
+    top: clamp(-0.75rem, -1vh, -0.15rem);
+    left: clamp(0.25rem, 1.2vw, 1rem);
     width: min(31vw, 28rem);
   }
 
