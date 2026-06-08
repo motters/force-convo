@@ -1,0 +1,86 @@
+<main class="topic-page" [class.topic-page--generated]="generated()">
+  <section class="hero" aria-labelledby="padawan-topic-title">
+    <h1 class="sr-only" id="padawan-topic-title">The Holocron of Random Chat</h1>
+
+    <div
+      class="mentor-scene"
+      [class.mentor-scene--consultable]="canConsult()"
+      [class.mentor-scene--generated]="generated()"
+    >
+      <div class="mentor-scene__rings"></div>
+      <div class="mentor-image-stack">
+        @for (stage of allMentorStages; track stage.image) {
+          <img
+            class="mentor-image"
+            [class.mentor-image--active]="stage.image === mentorStage().image"
+            [class.mentor-image--revealed]="generated()"
+            [src]="stage.image"
+            alt=""
+            width="1122"
+            height="1402"
+          />
+        }
+      </div>
+      <div class="mentor-transmission" aria-live="polite">
+        @for (stage of allMentorStages; track stage.image) {
+          <p
+            class="mentor-bubble"
+            [class.mentor-bubble--active]="stage.image === mentorStage().image"
+            [attr.aria-hidden]="stage.image === mentorStage().image ? null : 'true'"
+          >
+            <span>{{ stage.label }}</span>
+            <strong>{{ stage.message }}</strong>
+          </p>
+        }
+      </div>
+
+      @if (canConsult()) {
+        <button
+          class="holocron-action"
+          type="button"
+          (click)="generateTopics()"
+          [attr.aria-label]="generated() ? 'Reroll three random Padawan topics' : 'Generate three random Padawan topics'"
+        >
+          <img
+            class="holocron-action__image"
+            src="/padawan-assets/holocron-button.png"
+            alt=""
+            width="720"
+            height="720"
+            aria-hidden="true"
+          />
+          <span class="holocron-action__label">
+            {{ generated() ? 'Reroll the Holocron' : 'Consult the Holocron' }}
+          </span>
+        </button>
+      }
+      <span class="button-beam"></span>
+    </div>
+
+    @if (generated()) {
+      <div class="after-actions" aria-label="Topic sharing controls">
+        <button class="secondary-action" type="button" (click)="copyTopics()">
+          {{ copied() ? 'Copied' : 'Copy topics' }}
+        </button>
+      </div>
+    }
+  </section>
+
+  @if (generated()) {
+    <section class="topic-panel" aria-live="polite" aria-label="Generated conversation topics">
+      <div class="panel-heading">
+        <p class="kicker">Your training begins, Padawan</p>
+        <h2>The Force has selected these topics...</h2>
+      </div>
+
+      <ol class="topic-list">
+        @for (topic of topics(); track trackTopic($index, topic)) {
+          <li class="topic-card">
+            <span class="topic-card__label">{{ topic.categoryLabel }}</span>
+            <p>{{ topic.prompt }}</p>
+          </li>
+        }
+      </ol>
+    </section>
+  }
+</main>
