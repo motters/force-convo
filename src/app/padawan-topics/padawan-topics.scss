@@ -201,7 +201,7 @@ h2 {
 
 .mentor-bubble {
   position: absolute;
-  top: clamp(1rem, 5.2vh, 3.3rem);
+  top: clamp(6rem, 14vh, 9.5rem);
   right: clamp(0.25rem, 4.2vw, 4rem);
   width: min(37vw, 36rem);
   min-height: 9.4rem;
@@ -457,15 +457,6 @@ footer::after {
   overflow: hidden;
 }
 
-.topic-card::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(133, 244, 255, 0.08), transparent);
-  content: '';
-  transform: translateX(-110%);
-  animation: holo-scan 2200ms ease-in-out infinite;
-}
-
 .topic-card p {
   position: relative;
   z-index: 1;
@@ -534,17 +525,6 @@ footer::after {
   }
 }
 
-@keyframes holo-scan {
-  0%,
-  48% {
-    transform: translateX(-110%);
-  }
-
-  100% {
-    transform: translateX(110%);
-  }
-}
-
 @media (min-width: 58rem) {
   .topic-page--generated {
     grid-template-columns: minmax(32rem, 1fr) minmax(24rem, 36rem);
@@ -566,6 +546,11 @@ footer::after {
     opacity: 0.74;
     scale: 0.88;
     transform-origin: left center;
+  }
+
+  .topic-page--generated .topic-panel {
+    align-self: start;
+    margin-top: clamp(6rem, 12vh, 9rem);
   }
 }
 
@@ -644,6 +629,23 @@ footer::after {
     left: calc(50% - var(--mentor-width) * 0.26);
   }
 
+  .mentor-scene--generated .mentor-image-stack {
+    transform: translateX(-58%);
+  }
+
+  .mentor-scene--generated .mentor-bubble {
+    top: clamp(18.5rem, 40vh, 22rem);
+    right: auto;
+    left: 0.15rem;
+    width: min(82vw, 21rem);
+    min-height: 0;
+  }
+
+  .mentor-scene--generated .holocron-action {
+    top: calc(100% - var(--mentor-bottom) - var(--mentor-width) * 0.98);
+    left: calc(50% + var(--mentor-width) * 0.02);
+  }
+
   footer {
     right: 1rem;
     left: 1rem;
@@ -689,7 +691,7 @@ footer::after {
   }
 
   .mentor-bubble {
-    top: clamp(11.5rem, 27vh, 15rem);
+    top: clamp(18.5rem, 40vh, 22rem);
     right: auto;
     left: 0.15rem;
     width: min(82vw, 21rem);
