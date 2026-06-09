@@ -50,11 +50,10 @@ describe('PadawanTopics', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const activeTransmission = compiled.querySelector('.mentor-bubble--active')?.textContent ?? '';
 
     expect(compiled.querySelectorAll('.topic-card')).toHaveLength(3);
     expect(compiled.textContent).toContain('The Force has selected these topics...');
-    expect(activeTransmission).toContain('Ready to chat!');
+    expect(compiled.querySelector('.mentor-bubble--active')).toBeNull();
     expect(compiled.textContent).not.toContain('Copy topics');
   });
 });

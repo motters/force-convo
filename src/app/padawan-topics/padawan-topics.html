@@ -36,18 +36,20 @@
           />
         }
       </div>
-      <div class="mentor-transmission" aria-live="polite">
-        @for (stage of allMentorStages; track stage.image) {
-          <p
-            class="mentor-bubble"
-            [class.mentor-bubble--active]="stage.image === mentorStage().image"
-            [attr.aria-hidden]="stage.image === mentorStage().image ? null : 'true'"
-          >
-            <span>{{ stage.label }}</span>
-            <strong>{{ stage.message }}</strong>
-          </p>
-        }
-      </div>
+      @if (!generated()) {
+        <div class="mentor-transmission" aria-live="polite">
+          @for (stage of allMentorStages; track stage.image) {
+            <p
+              class="mentor-bubble"
+              [class.mentor-bubble--active]="stage.image === mentorStage().image"
+              [attr.aria-hidden]="stage.image === mentorStage().image ? null : 'true'"
+            >
+              <span>{{ stage.label }}</span>
+              <strong>{{ stage.message }}</strong>
+            </p>
+          }
+        </div>
+      }
 
       @if (canConsult()) {
         <button

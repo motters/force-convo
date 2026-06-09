@@ -18,6 +18,8 @@
 }
 
 .topic-page {
+  --stage-max: 118rem;
+
   position: relative;
   display: grid;
   place-items: center;
@@ -55,6 +57,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
+  max-width: var(--stage-max);
   min-height: calc(100dvh - clamp(1.8rem, 4.8vw, 5rem));
   margin: auto;
   isolation: isolate;
@@ -66,12 +69,12 @@
 
 .hero-copy {
   position: absolute;
-  left: clamp(-2rem, -2vw, -0.5rem);
-  top: clamp(4.5rem, 24vh, 17rem);
+  bottom: clamp(7rem, 12vh, 10rem);
+  left: 0;
   z-index: 5;
   display: grid;
   gap: 0.85rem;
-  width: min(32rem, 35vw);
+  width: clamp(24rem, 28vw, 32rem);
 }
 
 .hero-copy__mark {
@@ -131,9 +134,9 @@ h2 {
 }
 
 .mentor-scene {
-  --mentor-width: clamp(22rem, 30vw, 34rem);
+  --mentor-width: clamp(24rem, min(31vw, 58dvh), 36rem);
   --mentor-bottom: clamp(4.2rem, 9.4vh, 7rem);
-  --holocron-size: clamp(6.8rem, 8.5vw, 9.5rem);
+  --holocron-size: clamp(7rem, min(8.5vw, 15dvh), 9.8rem);
 
   position: absolute;
   inset: 0;
@@ -143,9 +146,9 @@ h2 {
 }
 
 .mentor-scene--generated {
-  --mentor-width: clamp(18rem, 24vw, 28rem);
-  --mentor-bottom: clamp(1.4rem, 3.4vh, 3rem);
-  --holocron-size: clamp(4.9rem, 6vw, 6.6rem);
+  --mentor-width: clamp(22rem, min(26vw, 49dvh), 32rem);
+  --mentor-bottom: clamp(2rem, 4.5vh, 3.6rem);
+  --holocron-size: clamp(5.4rem, min(6.2vw, 11dvh), 7.2rem);
 }
 
 .mentor-scene__rings {
@@ -201,9 +204,9 @@ h2 {
 
 .mentor-bubble {
   position: absolute;
-  top: clamp(6rem, 14vh, 9.5rem);
+  bottom: clamp(24rem, 32vh, 40rem);
   right: clamp(0.25rem, 4.2vw, 4rem);
-  width: min(37vw, 36rem);
+  width: clamp(25rem, 32vw, 36rem);
   min-height: 9.4rem;
   padding: clamp(1rem, 2.3vw, 1.55rem);
   border: 1px solid rgba(133, 244, 255, 0.42);
@@ -527,8 +530,10 @@ footer::after {
 
 @media (min-width: 58rem) {
   .topic-page--generated {
-    grid-template-columns: minmax(32rem, 1fr) minmax(24rem, 36rem);
+    grid-template-columns: minmax(34rem, 72rem) minmax(24rem, 36rem);
     gap: clamp(1rem, 2.5vw, 2.5rem);
+    justify-content: center;
+    align-items: stretch;
     padding: clamp(1rem, 2.2vw, 2rem);
   }
 
@@ -549,9 +554,11 @@ footer::after {
   }
 
   .topic-page--generated .topic-panel {
-    align-self: start;
-    margin-top: clamp(6rem, 12vh, 9rem);
+    align-self: end;
+    margin-bottom: clamp(8rem, 12vh, 12rem);
+    margin-top: 0;
   }
+
 }
 
 @media (max-width: 57.99rem) {
@@ -573,6 +580,7 @@ footer::after {
 
   .hero-copy {
     top: 1rem;
+    bottom: auto;
     left: 0.25rem;
     width: min(23rem, 58vw);
     gap: 0.52rem;
@@ -603,6 +611,7 @@ footer::after {
 
   .mentor-bubble {
     top: clamp(0.75rem, 2vh, 1.4rem);
+    bottom: auto;
     right: 0.25rem;
     width: min(46vw, 22rem);
     min-height: 7.2rem;
@@ -631,14 +640,6 @@ footer::after {
 
   .mentor-scene--generated .mentor-image-stack {
     transform: translateX(-58%);
-  }
-
-  .mentor-scene--generated .mentor-bubble {
-    top: clamp(18.5rem, 40vh, 22rem);
-    right: auto;
-    left: 0.15rem;
-    width: min(82vw, 21rem);
-    min-height: 0;
   }
 
   .mentor-scene--generated .holocron-action {
@@ -692,6 +693,7 @@ footer::after {
 
   .mentor-bubble {
     top: clamp(18.5rem, 40vh, 22rem);
+    bottom: auto;
     right: auto;
     left: 0.15rem;
     width: min(82vw, 21rem);
