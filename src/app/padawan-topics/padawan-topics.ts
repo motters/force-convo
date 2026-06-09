@@ -32,6 +32,8 @@ const READY_STAGE: MentorStage = {
   message: 'Ready to chat!',
 };
 
+const CONSULT_EFFECT_DURATION = 760;
+
 @Component({
   selector: 'app-padawan-topics',
   imports: [],
@@ -45,6 +47,7 @@ export class PadawanTopics implements OnInit {
   protected readonly allMentorStages = [...MENTOR_STAGES, READY_STAGE];
   protected readonly introStep = signal(0);
   protected readonly topics = signal<readonly Topic[]>([]);
+  protected readonly consulting = signal(false);
   protected readonly generated = computed(() => this.topics().length === 3);
   protected readonly canConsult = computed(() => this.generated() || this.introStep() >= 2);
   protected readonly mentorStage = computed(() =>
@@ -58,7 +61,15 @@ export class PadawanTopics implements OnInit {
   }
 
   generateTopics(): void {
-    this.topics.set(selectRandomTopics());
+    if (this.consulting()) {
+      return;
+    }
+
+    this.consulting.set(true);
+    this.queueTimer(() => {
+      this.topics.set(selectRandomTopics());
+      this.consulting.set(false);
+    }, CONSULT_EFFECT_DURATION);
   }
 
   protected trackTopic(_index: number, topic: Topic): string {

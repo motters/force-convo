@@ -54,8 +54,11 @@
       @if (canConsult()) {
         <button
           class="holocron-action"
+          [class.holocron-action--activating]="consulting()"
           type="button"
           (click)="generateTopics()"
+          [disabled]="consulting()"
+          [attr.aria-busy]="consulting()"
           [attr.aria-label]="generated() ? 'Reroll three random Padawan topics' : 'Generate three random Padawan topics'"
         >
           <img
@@ -67,7 +70,7 @@
             aria-hidden="true"
           />
           <span class="holocron-action__label">
-            {{ generated() ? 'Reroll the Holocron' : 'Consult the Holocron' }}
+            {{ consulting() ? 'Opening the Holocron' : generated() ? 'Reroll the Holocron' : 'Consult the Holocron' }}
           </span>
         </button>
       }

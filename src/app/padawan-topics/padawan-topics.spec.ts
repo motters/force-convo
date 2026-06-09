@@ -49,6 +49,11 @@ describe('PadawanTopics', () => {
     button.click();
     fixture.detectChanges();
 
+    expect(fixture.nativeElement.textContent).toContain('Opening the Holocron');
+
+    vi.advanceTimersByTime(760);
+    fixture.detectChanges();
+
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.querySelectorAll('.topic-card')).toHaveLength(3);

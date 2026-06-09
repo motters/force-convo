@@ -287,8 +287,40 @@ h2 {
   color: #f8fdff;
   background: transparent;
   cursor: pointer;
+  isolation: isolate;
   pointer-events: auto;
   animation: holocron-arrive 1050ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.holocron-action::before,
+.holocron-action::after {
+  position: absolute;
+  top: calc(var(--holocron-size) * -0.08);
+  left: 50%;
+  z-index: 1;
+  width: 136%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) scale(0.28);
+}
+
+.holocron-action::before {
+  background:
+    radial-gradient(circle, rgba(255, 246, 186, 0.95) 0 7%, transparent 8%),
+    radial-gradient(circle, rgba(133, 244, 255, 0.8) 0 18%, transparent 44%),
+    conic-gradient(from 20deg, transparent, rgba(133, 244, 255, 0.88), transparent, rgba(255, 232, 168, 0.78), transparent);
+  filter: blur(0.02rem);
+}
+
+.holocron-action::after {
+  width: 166%;
+  border: 2px solid rgba(133, 244, 255, 0.68);
+  box-shadow:
+    0 0 1.2rem rgba(133, 244, 255, 0.8),
+    inset 0 0 1.5rem rgba(255, 232, 168, 0.32);
 }
 
 .mentor-scene--generated .holocron-action {
@@ -297,6 +329,8 @@ h2 {
 }
 
 .holocron-action__image {
+  position: relative;
+  z-index: 2;
   display: block;
   width: 100%;
   height: auto;
@@ -310,6 +344,8 @@ h2 {
 }
 
 .holocron-action__label {
+  position: relative;
+  z-index: 3;
   display: inline-grid;
   min-height: 2.35rem;
   place-items: center;
@@ -328,6 +364,26 @@ h2 {
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.holocron-action--activating::before {
+  animation: holocron-color-burst 760ms ease-out both;
+}
+
+.holocron-action--activating::after {
+  animation: holocron-shockwave 760ms ease-out both;
+}
+
+.holocron-action--activating .holocron-action__image {
+  animation: holocron-fast-spin 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  filter:
+    drop-shadow(0 0 1rem rgba(255, 246, 186, 1))
+    drop-shadow(0 0 2.4rem rgba(133, 244, 255, 0.98))
+    drop-shadow(0 0 3.8rem rgba(70, 150, 255, 0.5));
+}
+
+.holocron-action:disabled {
+  cursor: wait;
 }
 
 .holocron-action:hover .holocron-action__image {
@@ -519,6 +575,57 @@ footer::after {
 
   50% {
     transform: translateY(-0.55rem) rotate(3deg);
+  }
+}
+
+@keyframes holocron-fast-spin {
+  0% {
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+
+  38% {
+    transform: translateY(-0.8rem) rotate(560deg) scale(1.2);
+  }
+
+  72% {
+    transform: translateY(-0.35rem) rotate(980deg) scale(1.08);
+  }
+
+  100% {
+    transform: translateY(0) rotate(1080deg) scale(1);
+  }
+}
+
+@keyframes holocron-color-burst {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.28) rotate(0deg);
+  }
+
+  34% {
+    opacity: 0.96;
+    transform: translateX(-50%) scale(0.82) rotate(145deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.36) rotate(260deg);
+  }
+}
+
+@keyframes holocron-shockwave {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.35);
+  }
+
+  24% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.72);
   }
 }
 
