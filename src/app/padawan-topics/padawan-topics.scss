@@ -54,24 +54,24 @@
 .hero {
   position: relative;
   z-index: 1;
-  width: min(100%, 96rem);
+  width: 100%;
   min-height: calc(100dvh - clamp(1.8rem, 4.8vw, 5rem));
   margin: auto;
   isolation: isolate;
 }
 
 .topic-page--generated .hero {
-  width: min(100%, 56rem);
+  width: 100%;
 }
 
 .hero-copy {
   position: absolute;
-  left: clamp(0.25rem, 4.4vw, 4rem);
+  left: clamp(-2rem, -2vw, -0.5rem);
   top: clamp(4.5rem, 24vh, 17rem);
   z-index: 5;
   display: grid;
   gap: 0.85rem;
-  width: min(34rem, 42vw);
+  width: min(32rem, 35vw);
 }
 
 .hero-copy__mark {
@@ -366,28 +366,6 @@ button:active {
   transform: translateY(1px) scale(0.99);
 }
 
-.after-actions {
-  position: absolute;
-  right: clamp(0.25rem, 4.2vw, 4rem);
-  bottom: clamp(5.5rem, 11vh, 8rem);
-  z-index: 6;
-  display: flex;
-  justify-content: center;
-}
-
-.secondary-action {
-  padding: 0.85rem 1rem;
-  color: #f6fbff;
-  border: 1px solid rgba(133, 244, 255, 0.42);
-  background: rgba(5, 16, 33, 0.76);
-  backdrop-filter: blur(12px);
-}
-
-.secondary-action:hover {
-  background: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 0 1.35rem rgba(133, 244, 255, 0.18);
-}
-
 footer {
   position: absolute;
   right: clamp(1rem, 8vw, 10rem);
@@ -666,11 +644,6 @@ footer::after {
     left: calc(50% - var(--mentor-width) * 0.26);
   }
 
-  .after-actions {
-    right: 1rem;
-    bottom: 4.2rem;
-  }
-
   footer {
     right: 1rem;
     left: 1rem;
@@ -698,7 +671,7 @@ footer::after {
 
   .hero-copy {
     width: calc(100% - 1rem);
-    padding-right: 43%;
+    padding-right: 46%;
   }
 
   .hero-copy > p:last-child {
@@ -712,11 +685,11 @@ footer::after {
   }
 
   .mentor-image-stack {
-    transform: translateX(-39%);
+    transform: translateX(-50%);
   }
 
   .mentor-bubble {
-    top: clamp(8rem, 18vh, 10.5rem);
+    top: clamp(11.5rem, 27vh, 15rem);
     right: auto;
     left: 0.15rem;
     width: min(82vw, 21rem);
@@ -726,6 +699,15 @@ footer::after {
   .holocron-action {
     top: calc(100% - var(--mentor-bottom) - var(--mentor-width) * 1.02);
     left: calc(50% - var(--mentor-width) * 0.5);
+  }
+
+  .mentor-scene--generated .mentor-image-stack {
+    transform: translateX(-58%);
+  }
+
+  .mentor-scene--generated .holocron-action {
+    top: calc(100% - var(--mentor-bottom) - var(--mentor-width) * 0.98);
+    left: calc(50% - var(--mentor-width) * 0.1);
   }
 
   .holocron-action__label {

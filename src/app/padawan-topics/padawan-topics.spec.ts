@@ -55,6 +55,6 @@ describe('PadawanTopics', () => {
     expect(compiled.querySelectorAll('.topic-card')).toHaveLength(3);
     expect(compiled.textContent).toContain('The Force has selected these topics...');
     expect(activeTransmission).toContain('Ready to chat!');
-    expect(compiled.textContent).toContain('Copy topics');
+    expect(compiled.textContent).not.toContain('Copy topics');
   });
 });

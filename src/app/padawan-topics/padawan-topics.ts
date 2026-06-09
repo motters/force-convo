@@ -45,7 +45,6 @@ export class PadawanTopics implements OnInit {
   protected readonly allMentorStages = [...MENTOR_STAGES, READY_STAGE];
   protected readonly introStep = signal(0);
   protected readonly topics = signal<readonly Topic[]>([]);
-  protected readonly copied = signal(false);
   protected readonly generated = computed(() => this.topics().length === 3);
   protected readonly canConsult = computed(() => this.generated() || this.introStep() >= 2);
   protected readonly mentorStage = computed(() =>
@@ -60,61 +59,10 @@ export class PadawanTopics implements OnInit {
 
   generateTopics(): void {
     this.topics.set(selectRandomTopics());
-    this.copied.set(false);
-  }
-
-  async copyTopics(): Promise<void> {
-    const topicText = this.formatTopicsForClipboard();
-
-    if (!topicText) {
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText(topicText);
-      this.showCopiedState();
-    } catch {
-      this.copyWithTextarea(topicText);
-    }
   }
 
   protected trackTopic(_index: number, topic: Topic): string {
     return topic.id;
-  }
-
-  private formatTopicsForClipboard(): string {
-    const topics = this.topics();
-
-    if (!topics.length) {
-      return '';
-    }
-
-    return [
-      'The Holocron of Random Chat has selected:',
-      ...topics.map((topic, index) => `${index + 1}. [${topic.categoryLabel}] ${topic.prompt}`),
-      '',
-      'No Jedi mind tricks. Just random chat fuel.',
-    ].join('\n');
-  }
-
-  private copyWithTextarea(text: string): void {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.setAttribute('readonly', '');
-    textarea.style.position = 'fixed';
-    textarea.style.inset = '0 auto auto 0';
-    textarea.style.opacity = '0';
-
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    textarea.remove();
-    this.showCopiedState();
-  }
-
-  private showCopiedState(): void {
-    this.copied.set(true);
-    this.queueTimer(() => this.copied.set(false), 1800);
   }
 
   private queueTimer(callback: () => void, delay: number): void {
