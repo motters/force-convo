@@ -1,0 +1,212 @@
+:host {
+  display: contents;
+}
+
+.padawan-space-battle {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 0;
+  height: min(42%, 40dvh);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.padawan-ship,
+.padawan-laser {
+  position: absolute;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.padawan-ship {
+  opacity: 0.62;
+  filter: drop-shadow(0 0 0.9rem rgba(80, 210, 255, 0.24));
+}
+
+.padawan-ship-1 {
+  top: 4%;
+  left: -24%;
+  width: clamp(11rem, 18vw, 22.5rem);
+  height: auto;
+  opacity: 0.34;
+  animation: padawan-capital-ship-pass 34s linear infinite;
+}
+
+.padawan-ship-2 {
+  top: 15%;
+  left: -18%;
+  width: clamp(5.6rem, 9vw, 11.2rem);
+  height: auto;
+  opacity: 0.62;
+  animation: padawan-fighter-pass-right 13s linear infinite;
+  animation-delay: -3s;
+}
+
+.padawan-ship-3 {
+  top: 25%;
+  right: -18%;
+  width: clamp(5rem, 8vw, 10rem);
+  height: auto;
+  opacity: 0.58;
+  transform: scaleX(-1);
+  animation: padawan-fighter-pass-left 16s linear infinite;
+  animation-delay: -8s;
+}
+
+.padawan-laser {
+  width: clamp(7.5rem, 14vw, 17.5rem);
+  height: auto;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.padawan-laser-red {
+  filter: drop-shadow(0 0 0.55rem rgba(255, 72, 72, 0.42));
+}
+
+.padawan-laser-green {
+  filter: drop-shadow(0 0 0.55rem rgba(91, 255, 163, 0.36));
+}
+
+.padawan-laser-red-1 {
+  top: 16%;
+  left: 56%;
+  transform: rotate(-11deg);
+  animation: padawan-laser-flash 5.8s ease-in-out infinite;
+  animation-delay: -1.2s;
+}
+
+.padawan-laser-green-1 {
+  top: 26%;
+  left: 38%;
+  transform: rotate(13deg);
+  animation: padawan-laser-flash 7.2s ease-in-out infinite;
+  animation-delay: -3.4s;
+}
+
+.padawan-laser-red-2 {
+  top: 9%;
+  left: 72%;
+  width: clamp(5rem, 10vw, 12.5rem);
+  transform: rotate(-6deg);
+  animation: padawan-laser-flash 8.4s ease-in-out infinite;
+  animation-delay: -5.7s;
+}
+
+@keyframes padawan-capital-ship-pass {
+  0% {
+    opacity: 0;
+    transform: translate3d(-20vw, 0, 0) scale(0.82) rotate(1deg);
+  }
+
+  12%,
+  82% {
+    opacity: 0.34;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(135vw, 2vh, 0) scale(0.9) rotate(1deg);
+  }
+}
+
+@keyframes padawan-fighter-pass-right {
+  0% {
+    opacity: 0;
+    transform: translate3d(-15vw, 1vh, 0) scale(0.72) rotate(5deg);
+  }
+
+  12%,
+  82% {
+    opacity: 0.62;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(135vw, -7vh, 0) scale(0.9) rotate(5deg);
+  }
+}
+
+@keyframes padawan-fighter-pass-left {
+  0% {
+    opacity: 0;
+    transform: translate3d(15vw, 0, 0) scaleX(-1) scale(0.68) rotate(-4deg);
+  }
+
+  14%,
+  78% {
+    opacity: 0.58;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-135vw, -5vh, 0) scaleX(-1) scale(0.84) rotate(-4deg);
+  }
+}
+
+@keyframes padawan-laser-flash {
+  0%,
+  68%,
+  100% {
+    opacity: 0;
+  }
+
+  70% {
+    opacity: 0.68;
+  }
+
+  73% {
+    opacity: 0.18;
+  }
+
+  75% {
+    opacity: 0.52;
+  }
+
+  79% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 48rem) {
+  .padawan-space-battle {
+    height: min(30%, 28dvh);
+  }
+
+  .padawan-ship-1 {
+    top: 7%;
+    width: 11.25rem;
+    opacity: 0.22;
+  }
+
+  .padawan-ship-2,
+  .padawan-ship-3,
+  .padawan-laser {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .padawan-ship,
+  .padawan-laser {
+    animation: none !important;
+  }
+
+  .padawan-laser {
+    display: none;
+  }
+
+  .padawan-ship-1 {
+    top: 5%;
+    left: 62%;
+    opacity: 0.22;
+    transform: scale(0.72) rotate(1deg);
+  }
+
+  .padawan-ship-2,
+  .padawan-ship-3 {
+    display: none;
+  }
+}

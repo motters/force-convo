@@ -1,6 +1,7 @@
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 
 import { PadawanSound } from './padawan-sound';
+import { SpaceBattleLayer } from './space-battle-layer';
 import { selectRandomTopics, Topic } from './topics';
 
 interface MentorStage {
@@ -37,7 +38,7 @@ const CONSULT_EFFECT_DURATION = 760;
 
 @Component({
   selector: 'app-padawan-topics',
-  imports: [],
+  imports: [SpaceBattleLayer],
   templateUrl: './padawan-topics.html',
   styleUrl: './padawan-topics.scss',
 })
