@@ -53,6 +53,7 @@ export class PadawanSound {
   private preloaded = false;
   private interacted = false;
   private lastHoverAt = 0;
+  private readonly startupTimers: number[] = [];
   private readonly isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
   private readonly mediaSupported =
     this.isBrowser && !window.navigator.userAgent.toLowerCase().includes('jsdom');
@@ -78,21 +79,29 @@ export class PadawanSound {
     window.addEventListener('pointerdown', markInteracted, { passive: true });
     window.addEventListener('keydown', markInteracted);
 
-    window.setTimeout(() => {
-      if (!this.enabledSignal()) {
-        return;
+    const startInitialAudio = () => this.startPageAudio();
+    const restartVisibleAudio = () => {
+      if (document.visibilityState === 'visible') {
+        this.startPageAudio();
       }
+    };
 
-      this.startBackground();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startInitialAudio, { once: true });
+    }
 
-      if (this.ambientSignal()) {
-        this.startAmbient();
-      }
-    }, 0);
+    document.addEventListener('visibilitychange', restartVisibleAudio);
+    this.queueStartupAttempt(0);
+    this.queueStartupAttempt(250);
+    this.queueStartupAttempt(1000);
+    this.queueStartupAttempt(2500);
 
     this.destroyRef.onDestroy(() => {
       window.removeEventListener('pointerdown', markInteracted);
       window.removeEventListener('keydown', markInteracted);
+      document.removeEventListener('DOMContentLoaded', startInitialAudio);
+      document.removeEventListener('visibilitychange', restartVisibleAudio);
+      this.clearStartupTimers();
       this.stopAmbient();
       this.stopBackground();
     });
@@ -201,14 +210,9 @@ export class PadawanSound {
   private markInteracted(): void {
     this.interacted = true;
     this.preloadShortSounds();
+    this.clearStartupTimers();
 
-    if (this.enabledSignal()) {
-      this.startBackground();
-
-      if (this.ambientSignal()) {
-        this.startAmbient();
-      }
-    }
+    this.startPageAudio();
   }
 
   private preloadShortSounds(): void {
@@ -290,7 +294,8 @@ export class PadawanSound {
     const sound = document.createElement('audio');
     sound.src = PADAWAN_SOUND_PATH[name];
     sound.volume = PADAWAN_SOUND_VOLUME[name];
-    sound.preload = name === 'ambient' ? 'none' : 'metadata';
+    sound.preload = name === 'ambient' ? 'auto' : 'metadata';
+    sound.autoplay = name === 'ambient';
     this.audio.set(name, sound);
     return sound;
   }
@@ -303,7 +308,8 @@ export class PadawanSound {
     const background = document.createElement('audio');
     background.src = BACKGROUND_MUSIC_PATH;
     background.volume = BACKGROUND_VOLUME;
-    background.preload = 'metadata';
+    background.preload = 'auto';
+    background.autoplay = true;
     this.backgroundAudio = background;
     return background;
   }
@@ -330,6 +336,30 @@ export class PadawanSound {
     } catch {
       // Some test/browser environments do not implement media loading.
     }
+  }
+
+  private startPageAudio(): void {
+    if (!this.enabledSignal()) {
+      return;
+    }
+
+    this.startBackground();
+
+    if (this.ambientSignal()) {
+      this.startAmbient();
+    }
+  }
+
+  private queueStartupAttempt(delay: number): void {
+    this.startupTimers.push(window.setTimeout(() => this.startPageAudio(), delay));
+  }
+
+  private clearStartupTimers(): void {
+    for (const timer of this.startupTimers) {
+      window.clearTimeout(timer);
+    }
+
+    this.startupTimers.length = 0;
   }
 
   private isActiveTyping(): boolean {
