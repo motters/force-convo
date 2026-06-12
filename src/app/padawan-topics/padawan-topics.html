@@ -1,4 +1,30 @@
 <main class="topic-page" [class.topic-page--generated]="generated()">
+  <div class="sound-controls" aria-label="Audio controls">
+    <button
+      class="sound-toggle"
+      type="button"
+      (click)="toggleSound()"
+      (mouseenter)="playHover()"
+      (focus)="playHover()"
+      [attr.aria-pressed]="soundEnabled()"
+      [attr.aria-label]="soundEnabled() ? 'Turn Padawan sounds off' : 'Turn Padawan sounds on'"
+    >
+      {{ soundEnabled() ? 'Sound on' : 'Sound off' }}
+    </button>
+    <button
+      class="sound-toggle"
+      type="button"
+      (click)="toggleAmbient()"
+      (mouseenter)="playHover()"
+      (focus)="playHover()"
+      [disabled]="!soundEnabled()"
+      [attr.aria-pressed]="ambientEnabled()"
+      [attr.aria-label]="ambientEnabled() ? 'Turn ambient Force hum off' : 'Turn ambient Force hum on'"
+    >
+      {{ ambientEnabled() ? 'Ambient on' : 'Ambient off' }}
+    </button>
+  </div>
+
   <section class="hero" aria-labelledby="padawan-topic-title">
     <div class="hero-copy">
       <img
@@ -56,6 +82,8 @@
           [class.holocron-action--activating]="consulting()"
           type="button"
           (click)="generateTopics()"
+          (mouseenter)="playHover()"
+          (focus)="playHover()"
           [disabled]="consulting()"
           [attr.aria-busy]="consulting()"
           [attr.aria-label]="generated() ? 'Reroll three random Padawan topics' : 'Generate three random Padawan topics'"
@@ -87,7 +115,18 @@
 
       <ol class="topic-list">
         @for (topic of topics(); track trackTopic($index, topic)) {
-          <li class="topic-card">
+          <li
+            class="topic-card"
+            [class.topic-card--selected]="selectedTopicId() === topic.id"
+            role="button"
+            tabindex="0"
+            (click)="selectTopic(topic)"
+            (mouseenter)="playHover()"
+            (focus)="playHover()"
+            (keydown.enter)="selectTopic(topic)"
+            (keydown.space)="$event.preventDefault(); selectTopic(topic)"
+            [attr.aria-pressed]="selectedTopicId() === topic.id"
+          >
             <span class="topic-card__label">{{ topic.categoryLabel }}</span>
             <p>{{ topic.prompt }}</p>
           </li>
